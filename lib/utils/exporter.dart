@@ -9,6 +9,7 @@ export 'package:medilink/features/authentication/presentation/screens/sign_up.da
 export 'package:medilink/features/authentication/presentation/screens/log_in.dart';
 export 'package:medilink/features/authentication/presentation/widgets/general_info_form.dart';
 export 'package:medilink/features/authentication/presentation/widgets/address_form.dart';
+export 'package:medilink/features/authentication/presentation/widgets/password_form.dart';
 export 'package:medilink/features/authentication/state/state.dart';
 
 //exporting controllers

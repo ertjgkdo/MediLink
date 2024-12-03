@@ -101,108 +101,106 @@ class AddressForm extends ConsumerWidget {
       ]
     };
 
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-              padding: EdgeInsets.only(left: 40, top: 60),
-              child: Text(
-                "Enter your Address",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              )),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: DropdownButtonFormField<String>(
-              // value: selectedGender,
-              decoration: const InputDecoration(
-                labelText: 'Province',
-                // Adds a border for better UI
-                contentPadding: EdgeInsets.symmetric(
-                    vertical: 8, horizontal: 3), // Compact styling
-              ),
-              items: [],
-              //genderOptions.map((gender) {
-              //   return DropdownMenuItem<String>(
-              //     value: gender,
-              //     child: Text(gender,
-              //         style: TextStyle(fontSize: 14)
-              //         ), // Compact text
-              //   );
-              // }).toList(),
-              onChanged: (value) {},
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a province';
-                }
-                return null;
-              },
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+            padding: EdgeInsets.only(left: 40, top: 60),
+            child: Text(
+              "Enter your Address",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+            )),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: DropdownButtonFormField<String>(
+            // value: selectedGender,
+            decoration: const InputDecoration(
+              labelText: 'Province',
+              // Adds a border for better UI
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: 8, horizontal: 3), // Compact styling
             ),
+            items: [],
+            //genderOptions.map((gender) {
+            //   return DropdownMenuItem<String>(
+            //     value: gender,
+            //     child: Text(gender,
+            //         style: TextStyle(fontSize: 14)
+            //         ), // Compact text
+            //   );
+            // }).toList(),
+            onChanged: (value) {},
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a province';
+              }
+              return null;
+            },
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: DropdownButtonFormField<String>(
-              // value: selectedGender,
-              decoration: const InputDecoration(
-                labelText: 'District',
-                // Adds a border for better UI
-                contentPadding: EdgeInsets.symmetric(
-                    vertical: 8, horizontal: 3), // Compact styling
-              ),
-              items: [],
-              //genderOptions.map((gender) {
-              //   return DropdownMenuItem<String>(
-              //     value: gender,
-              //     child: Text(gender,
-              //         style: TextStyle(fontSize: 14)
-              //         ), // Compact text
-              //   );
-              // }).toList(),
-              onChanged: (value) {},
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a district';
-                }
-                return null;
-              },
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: DropdownButtonFormField<String>(
+            // value: selectedGender,
+            decoration: const InputDecoration(
+              labelText: 'District',
+              // Adds a border for better UI
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: 8, horizontal: 3), // Compact styling
             ),
+            items: [],
+            //genderOptions.map((gender) {
+            //   return DropdownMenuItem<String>(
+            //     value: gender,
+            //     child: Text(gender,
+            //         style: TextStyle(fontSize: 14)
+            //         ), // Compact text
+            //   );
+            // }).toList(),
+            onChanged: (value) {},
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a district';
+              }
+              return null;
+            },
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: DropdownButtonFormField<String>(
-              // value: selectedGender,
-              decoration: const InputDecoration(
-                labelText: 'Sub-District',
-                // Adds a border for better UI
-                contentPadding: EdgeInsets.symmetric(
-                    vertical: 8, horizontal: 3), // Compact styling
-              ),
-              items: [],
-              //genderOptions.map((gender) {
-              //   return DropdownMenuItem<String>(
-              //     value: gender,
-              //     child: Text(gender,
-              //         style: TextStyle(fontSize: 14)
-              //         ), // Compact text
-              //   );
-              // }).toList(),
-              onChanged: (value) {},
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please select a sub-district';
-                }
-                return null;
-              },
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: DropdownButtonFormField<String>(
+            // value: selectedGender,
+            decoration: const InputDecoration(
+              labelText: 'Sub-District',
+              // Adds a border for better UI
+              contentPadding: EdgeInsets.symmetric(
+                  vertical: 8, horizontal: 3), // Compact styling
             ),
+            items: [],
+            //genderOptions.map((gender) {
+            //   return DropdownMenuItem<String>(
+            //     value: gender,
+            //     child: Text(gender,
+            //         style: TextStyle(fontSize: 14)
+            //         ), // Compact text
+            //   );
+            // }).toList(),
+            onChanged: (value) {},
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a sub-district';
+              }
+              return null;
+            },
           ),
-          Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-              child: formTextfield(
-                  controller: toleController,
-                  icon: Icons.streetview,
-                  label: "Tole (Optional)")),
-        ],
-      ),
+        ),
+        Container(
+            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+            child: formTextfield(
+                controller: toleController,
+                icon: Icons.streetview,
+                label: "Tole (Optional)")),
+      ],
     );
   }
 }

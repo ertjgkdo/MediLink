@@ -53,7 +53,7 @@ class SignUp extends ConsumerWidget {
                 steps: const [
                   Step(
                       title: Text(
-                        "General Information Form",
+                        "Step 1",
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -61,12 +61,16 @@ class SignUp extends ConsumerWidget {
                       content: GeneralInfoForm()),
                   Step(
                       title: Text(
-                        "Address Form",
+                        "Step 2",
                         textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
                       ),
-                      content: AddressForm())
+                      content: AddressForm()),
+                  Step(
+                      title: Text(
+                        "Step 3",
+                        textAlign: TextAlign.center,
+                      ),
+                      content: PasswordForm())
                 ])),
       )
     ]));
