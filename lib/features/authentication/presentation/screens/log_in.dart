@@ -112,7 +112,7 @@ class Login extends ConsumerWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignUp(),
+                                builder: (context) => const SignUp(),
                               ));
                         },
                         style: TextButton.styleFrom(

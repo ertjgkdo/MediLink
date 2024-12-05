@@ -7,11 +7,16 @@ class FormStepController extends Notifier<int> {
     return 0;
   }
 
-  continueStep() {
+  continueStep({required List<GlobalKey<FormState>> formKeys}) {
     if (state < 2) {
-      state = state + 1;
+      if (formKeys[0].currentState!.validate()) {
+        state = state + 1;
+      }
+      if (formKeys[1].currentState!.validate()) {
+        state = state + 1;
+      }
     } else {
-      state = state - 1;
+      if (formKeys[1].currentState!.validate()) state = state - 1;
     }
   }
 }

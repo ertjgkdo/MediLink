@@ -5,9 +5,10 @@ class SignUp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final signupFormKey = GlobalKey<FormState>();
     final currentStep = ref.watch(formStepProvider);
     final stepController = ref.read(formStepProvider.notifier);
+    // final signUpFormState = ref.watch(signUpFormProvider);
+    final signUpFormController = ref.read(signUpFormProvider.notifier);
     return Scaffold(
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(
@@ -42,36 +43,69 @@ class SignUp extends ConsumerWidget {
         ],
       ),
       Expanded(
-        child: Form(
-            key: signupFormKey,
-            child: Stepper(
-                type: StepperType.horizontal,
-                currentStep: currentStep,
-                onStepContinue: () {
-                  stepController.continueStep();
-                },
-                steps: const [
-                  Step(
-                      title: Text(
-                        "Step 1",
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      content: GeneralInfoForm()),
-                  Step(
-                      title: Text(
-                        "Step 2",
-                        textAlign: TextAlign.center,
-                      ),
-                      content: AddressForm()),
-                  Step(
-                      title: Text(
-                        "Step 3",
-                        textAlign: TextAlign.center,
-                      ),
-                      content: PasswordForm())
-                ])),
+        child: Stepper(
+            controlsBuilder: (context, details) => Row(
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          details.onStepContinue!();
+                        },
+                        child:
+                            Text(currentStep <= 1 ? "Continue" : "Previous")),
+                    if (currentStep > 1)
+                      ElevatedButton(
+                          onPressed: () {
+                            // if (formController.basicFormKey.currentState!
+                            //         .validate() &&
+                            //     formController.nutritionFormKey.currentState!
+                            //         .validate()) {
+                            //   formController.submit(context: context);
+                            // }
+                          },
+                          child: const Text("Submit"))
+                  ],
+                ),
+            type: StepperType.horizontal,
+            currentStep: currentStep,
+            onStepContinue: () {
+              stepController.continueStep(formKeys: [
+                signUpFormController.generalInfoFormKey,
+                signUpFormController.addressFormKey,
+                signUpFormController.passwordFormKey
+              ]);
+            },
+            steps: [
+              Step(
+                  title: const Text(
+                    "Step 1",
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  content: Form(
+                      key: signUpFormController.generalInfoFormKey,
+                      child: GeneralInfoForm(
+                        formController: signUpFormController,
+                      ))),
+              Step(
+                  title: const Text(
+                    "Step 2",
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Form(
+                      key: signUpFormController.addressFormKey,
+                      child:
+                          AddressForm(formController: signUpFormController))),
+              Step(
+                  title: const Text(
+                    "Step 3",
+                    textAlign: TextAlign.center,
+                  ),
+                  content: Form(
+                      key: signUpFormController.passwordFormKey,
+                      child:
+                          PasswordForm(formController: signUpFormController)))
+            ]),
       )
     ]));
   }

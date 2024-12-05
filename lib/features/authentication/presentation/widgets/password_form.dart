@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class PasswordForm extends ConsumerWidget {
-  const PasswordForm({super.key});
-
+  const PasswordForm({super.key, required this.formController});
+  final SignUpController formController;
   @override
   Widget build(BuildContext context, ref) {
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmController = TextEditingController();
     return Column(
       children: [
         Container(
             margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
-                controller: passwordController,
+                controller: formController.passwordController,
                 icon: Icons.password,
                 label: "Enter a password",
                 validator: (value) {
@@ -25,7 +23,7 @@ class PasswordForm extends ConsumerWidget {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
           child: formTextfield(
-              controller: confirmController,
+              controller: formController.confirmController,
               icon: Icons.password,
               label: "Re-enter Password",
               validator: (value) {

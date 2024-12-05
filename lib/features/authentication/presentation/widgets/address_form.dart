@@ -1,12 +1,10 @@
 import 'package:medilink/utils/exporter.dart';
 
 class AddressForm extends ConsumerWidget {
-  const AddressForm({super.key});
-
+  const AddressForm({super.key, required this.formController});
+  final SignUpController formController;
   @override
   Widget build(BuildContext context, ref) {
-    final TextEditingController toleController = TextEditingController();
-
     Map<String, List<String>> provinces = {
       "Province No. 1": [
         "Bhojpur District",
@@ -197,7 +195,7 @@ class AddressForm extends ConsumerWidget {
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
-                controller: toleController,
+                controller: formController.toleController,
                 icon: Icons.streetview,
                 label: "Tole (Optional)")),
       ],

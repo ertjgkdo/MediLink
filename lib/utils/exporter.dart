@@ -12,5 +12,9 @@ export 'package:medilink/features/authentication/presentation/widgets/address_fo
 export 'package:medilink/features/authentication/presentation/widgets/password_form.dart';
 export 'package:medilink/features/authentication/state/state.dart';
 
+//exporting models
+export 'package:medilink/features/authentication/domain/user_model.dart';
+
 //exporting controllers
 export 'package:medilink/features/authentication/presentation/controllers/form_step_controller.dart';
+export 'package:medilink/features/authentication/presentation/controllers/sign_up_controller.dart';

@@ -1,17 +1,10 @@
 import '../../../../utils/exporter.dart';
 
 class GeneralInfoForm extends ConsumerWidget {
-  const GeneralInfoForm({
-    super.key,
-  });
-
+  const GeneralInfoForm({super.key, required this.formController});
+  final SignUpController formController;
   @override
   Widget build(BuildContext context, ref) {
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController dobController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
-
     // Dropdown values
     String? selectedGender;
     String? selectedBloodGroup;
@@ -39,7 +32,7 @@ class GeneralInfoForm extends ConsumerWidget {
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
-                controller: nameController,
+                controller: formController.nameController,
                 icon: Icons.person,
                 label: "Full Name",
                 validator: (value) {
@@ -54,7 +47,7 @@ class GeneralInfoForm extends ConsumerWidget {
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: TextFormField(
-                controller: dobController,
+                controller: formController.dobController,
                 decoration: InputDecoration(
                     prefixIcon: IconButton(
                       icon: const Icon(Icons.calendar_today),
@@ -66,7 +59,7 @@ class GeneralInfoForm extends ConsumerWidget {
                           lastDate: DateTime.now(),
                         );
                         if (pickedDate != null) {
-                          dobController.text =
+                          formController.dobController.text =
                               "${pickedDate.toLocal()}".split(' ')[0];
                         }
                       },
@@ -85,27 +78,22 @@ class GeneralInfoForm extends ConsumerWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      right: 5), // Adds spacing between the dropdowns
+                  padding: const EdgeInsets.only(right: 5),
                   child: DropdownButtonFormField<String>(
                     value: selectedGender,
                     decoration: const InputDecoration(
                       labelText: 'Gender',
-                      // Adds a border for better UI
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 3), // Compact styling
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 3),
                     ),
                     items: genderOptions.map((gender) {
                       return DropdownMenuItem<String>(
                         value: gender,
-                        child: Text(gender,
-                            style:
-                                const TextStyle(fontSize: 14)), // Compact text
+                        child:
+                            Text(gender, style: const TextStyle(fontSize: 14)),
                       );
                     }).toList(),
-                    onChanged: (value) {
-                      // Handle selection
-                    },
+                    onChanged: (value) {},
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Required!';
@@ -118,22 +106,19 @@ class GeneralInfoForm extends ConsumerWidget {
               // Blood Group Dropdown
               Expanded(
                 child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 5.0), // Adds spacing between the dropdowns
+                    padding: const EdgeInsets.only(left: 5.0),
                     child: DropdownButtonFormField<String>(
                       value: selectedBloodGroup,
                       decoration: const InputDecoration(
                         labelText: 'Blood Group',
-                        // Adds a border for better UI
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 8, horizontal: 3), // Compact styling
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 8, horizontal: 3),
                       ),
                       items: bloodGroupOptions.map((bloodGroup) {
                         return DropdownMenuItem<String>(
                           value: bloodGroup,
                           child: Text(bloodGroup,
-                              style: const TextStyle(
-                                  fontSize: 14)), // Compact text
+                              style: const TextStyle(fontSize: 14)),
                         );
                       }).toList(),
                       onChanged: (value) {
@@ -153,7 +138,7 @@ class GeneralInfoForm extends ConsumerWidget {
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
-                controller: phoneController,
+                controller: formController.phoneController,
                 icon: Icons.phone,
                 label: "Phone number",
                 validator: (value) {
@@ -168,7 +153,7 @@ class GeneralInfoForm extends ConsumerWidget {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
           child: formTextfield(
-            controller: emailController,
+            controller: formController.emailController,
             icon: Icons.mail_outline,
             label: "Email (Optional)",
             validator: (value) {
