@@ -38,6 +38,8 @@ dependencies:
   flutter_riverpod: ^2.6.1
   intl: ^0.20.1
   http: ^1.2.2
+  equatable: ^2.0.7
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +59,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets\images\logo.png
-    - assets\json_data\districts-municipalities.json
+    - assets\images\hospital\h1.png
+    - assets\images\hospital\h2.png
+    - assets\images\hospital\h3.png
+    - assets\json_data\districts-subdistricts.json
     - assets\json_data\provinces-districts.json
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

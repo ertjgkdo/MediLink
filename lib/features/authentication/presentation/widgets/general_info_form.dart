@@ -1,3 +1,5 @@
+// import 'package:intl/intl.dart';
+
 import '../../../../utils/exporter.dart';
 
 class GeneralInfoForm extends ConsumerWidget {
@@ -24,7 +26,7 @@ class GeneralInfoForm extends ConsumerWidget {
     return Column(
       children: [
         const Padding(
-            padding: EdgeInsets.only(left: 40, top: 40),
+            padding: EdgeInsets.only(top: 40),
             child: Text(
               "Register your account",
               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
@@ -60,7 +62,7 @@ class GeneralInfoForm extends ConsumerWidget {
                         );
                         if (pickedDate != null) {
                           formController.dobController.text =
-                              "${pickedDate.toLocal()}".split(' ')[0];
+                              pickedDate.toString();
                         }
                       },
                     ),
@@ -93,7 +95,9 @@ class GeneralInfoForm extends ConsumerWidget {
                             Text(gender, style: const TextStyle(fontSize: 14)),
                       );
                     }).toList(),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      formController.gender = value;
+                    },
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Required!';
@@ -122,7 +126,7 @@ class GeneralInfoForm extends ConsumerWidget {
                         );
                       }).toList(),
                       onChanged: (value) {
-                        // Handle selection
+                        formController.bloodgroup = value;
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -139,6 +143,7 @@ class GeneralInfoForm extends ConsumerWidget {
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
                 controller: formController.phoneController,
+                prefixtext: "+977",
                 icon: Icons.phone,
                 label: "Phone number",
                 validator: (value) {
@@ -147,6 +152,9 @@ class GeneralInfoForm extends ConsumerWidget {
                   }
                   if (!RegExp(r'[0-9]+$').hasMatch(value)) {
                     return 'Phone number must contain only numbers';
+                  }
+                  if (value.length != 10) {
+                    return 'Phone number must be 10 digits';
                   }
                   return null;
                 })),

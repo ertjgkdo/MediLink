@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'utils/exporter.dart';
 
 void main() {
@@ -12,13 +13,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      scrollBehavior: MyScroll(),
-      themeMode: ThemeMode.light,
-      theme: ThemeData.light(useMaterial3: false),
-      darkTheme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      home: Login(),
-    );
+        scrollBehavior: MyScroll(),
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+            colorScheme:
+                ColorScheme.light(primary: Color.fromRGBO(0, 137, 123, 1)),
+            useMaterial3: false),
+        darkTheme: ThemeData.dark(),
+        debugShowCheckedModeBanner: false,
+        home: Home()
+        // DoctorPage(doctor: Doctor(),)
+        //
+        // DepartmentPage(
+        // department: Department(),
+        // )
+
+        // HospitalPage(hospital: Hospital())
+
+        // Login(),
+        );
   }
 }
 

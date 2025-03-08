@@ -29,13 +29,13 @@ class SignUp extends ConsumerWidget {
               TextSpan(
                   text: "Medi",
                   style: TextStyle(
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w700,
                       fontSize: 26,
                       color: Color.fromRGBO(55, 71, 79, 1))),
               TextSpan(
                   text: "Link",
                   style: TextStyle(
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w700,
                       fontSize: 26,
                       color: Color.fromRGBO(0, 137, 123, 1)))
             ])),
@@ -44,38 +44,110 @@ class SignUp extends ConsumerWidget {
       ),
       Expanded(
         child: Stepper(
-            controlsBuilder: (context, details) => Row(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          details.onStepContinue!();
-                        },
-                        child:
-                            Text(currentStep <= 1 ? "Continue" : "Previous")),
-                    if (currentStep > 1)
-                      ElevatedButton(
-                          onPressed: () {
-                            // if (formController.basicFormKey.currentState!
-                            //         .validate() &&
-                            //     formController.nutritionFormKey.currentState!
-                            //         .validate()) {
-                            //   formController.submit(context: context);
-                            // }
-                          },
-                          child: const Text("Submit"))
-                  ],
-                ),
             type: StepperType.horizontal,
             currentStep: currentStep,
             onStepContinue: () {
-              stepController.continueStep(formKeys: [
-                signUpFormController.generalInfoFormKey,
-                signUpFormController.addressFormKey,
-                signUpFormController.passwordFormKey
-              ]);
+              if (currentStep == 0) {
+                // Check if basic info is filled, continue to step 2
+                if (signUpFormController.generalInfoFormKey.currentState
+                        ?.validate() ??
+                    false) {
+                  stepController.continueStep(formKeys: [
+                    signUpFormController.generalInfoFormKey,
+                    signUpFormController.addressFormKey,
+                    signUpFormController.passwordFormKey
+                  ]);
+                }
+              } else if (currentStep == 1) {
+                // Check if address form is skipped or valid, proceed
+                if (signUpFormController.addressFormKey.currentState
+                        ?.validate() ??
+                    false) {
+                  stepController.continueStep(formKeys: [
+                    signUpFormController.generalInfoFormKey,
+                    signUpFormController.addressFormKey,
+                    signUpFormController.passwordFormKey
+                  ]);
+                }
+              } else {
+                stepController.continueStep(formKeys: [
+                  signUpFormController.generalInfoFormKey,
+                  signUpFormController.addressFormKey,
+                  signUpFormController.passwordFormKey
+                ]);
+              }
             },
+            onStepCancel: () {
+              if (currentStep > 0) {
+                stepController.previousStep();
+              }
+            },
+            controlsBuilder: (context, details) => Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (currentStep == 0) {
+                              // Go to the previous page.
+                              Navigator.pop(context);
+                            } else {
+                              // Go to the previous step.
+                              details.onStepCancel!();
+                            }
+                          },
+                          child: const Text("Back"),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      if (currentStep == 1)
+                        Expanded(
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  stepController.continueStep(formKeys: [
+                                    signUpFormController.generalInfoFormKey,
+                                    signUpFormController.addressFormKey,
+                                    signUpFormController.passwordFormKey
+                                  ], skip: true);
+                                },
+                                child: const Text("Skip"))),
+                      const SizedBox(width: 10),
+                      if (currentStep != 2)
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                details.onStepContinue!();
+                              },
+                              child: const Text("Continue")),
+                        ),
+                      if (currentStep == 2)
+                        Expanded(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (signUpFormController
+                                        .generalInfoFormKey.currentState!
+                                        .validate() &&
+                                    signUpFormController
+                                        .addressFormKey.currentState!
+                                        .validate() &&
+                                    signUpFormController
+                                        .passwordFormKey.currentState!
+                                        .validate()) {
+                                  signUpFormController.signUp(context: context);
+                                }
+                              },
+                              child: const Text("Submit")),
+                        ),
+                    ],
+                  ),
+                ),
             steps: [
               Step(
+                  state:
+                      currentStep > 0 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep == 0,
                   title: const Text(
                     "Step 1",
                     textAlign: TextAlign.center,
@@ -88,6 +160,9 @@ class SignUp extends ConsumerWidget {
                         formController: signUpFormController,
                       ))),
               Step(
+                  state:
+                      currentStep > 1 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep == 1,
                   title: const Text(
                     "Step 2",
                     textAlign: TextAlign.center,
@@ -97,6 +172,9 @@ class SignUp extends ConsumerWidget {
                       child:
                           AddressForm(formController: signUpFormController))),
               Step(
+                  state:
+                      currentStep > 2 ? StepState.complete : StepState.indexed,
+                  isActive: currentStep == 2,
                   title: const Text(
                     "Step 3",
                     textAlign: TextAlign.center,
@@ -106,7 +184,7 @@ class SignUp extends ConsumerWidget {
                       child:
                           PasswordForm(formController: signUpFormController)))
             ]),
-      )
+      ),
     ]));
   }
 }

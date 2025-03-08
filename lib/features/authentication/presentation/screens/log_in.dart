@@ -1,3 +1,4 @@
+import 'package:medilink/features/authentication/presentation/controllers/login_controller.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class Login extends ConsumerWidget {
@@ -5,10 +6,7 @@ class Login extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final _loginFormKey = GlobalKey<FormState>();
-
-    final TextEditingController idController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+    final formController = ref.read(loginFormProvider.notifier);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,8 +20,8 @@ class Login extends ConsumerWidget {
                     "Welcome\nto",
                     style: TextStyle(
                       color: Color.fromRGBO(55, 71, 79, 1),
-                      fontWeight: FontWeight.w900,
-                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 33,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -39,14 +37,14 @@ class Login extends ConsumerWidget {
                   TextSpan(
                       text: "Medi",
                       style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 33,
                           color: Color.fromRGBO(55, 71, 79, 1))),
                   TextSpan(
                       text: "Link",
                       style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 30,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 33,
                           color: Color.fromRGBO(0, 137, 123, 1)))
                 ])),
                 Container(
@@ -63,7 +61,7 @@ class Login extends ConsumerWidget {
           ),
           Expanded(
             child: Form(
-              key: _loginFormKey,
+              key: formController.loginFormKey,
               child: Column(
                 children: [
                   const SizedBox(
@@ -73,21 +71,40 @@ class Login extends ConsumerWidget {
                     margin: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 40),
                     child: formTextfield(
-                        controller: idController,
+                        controller: formController.idController,
                         icon: Icons.phone,
-                        label: "Phone or Email"),
+                        prefixtext: "+977",
+                        label: "Phone number",
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Phone number is required';
+                          }
+                          return null;
+                        }),
                   ),
                   Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: 40, vertical: 10),
                       child: formTextfield(
-                          controller: passwordController,
+                          controller: formController.passwordController,
                           icon: Icons.password,
-                          label: "Password")),
+                          label: "Password",
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password is required';
+                            }
+                            return null;
+                          })),
                   Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 10),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print("pressed");
+                        if (formController.loginFormKey.currentState!
+                            .validate()) {
+                          formController.login(context: context);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color.fromRGBO(0, 137, 123, 1),
                           shape: const RoundedRectangleBorder(
