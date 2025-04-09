@@ -12,28 +12,38 @@ class top_bar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text.rich(TextSpan(children: [
-            TextSpan(
-                text: "Medi",
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Color.fromRGBO(55, 71, 79, 1))),
-            TextSpan(
-                text: "Link",
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Color.fromRGBO(0, 137, 123, 1)))
-          ])),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.notifications_outlined)),
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.settings_outlined))
-            ],
+          Expanded(
+            flex: 3,
+            child: const Text.rich(TextSpan(children: [
+              TextSpan(
+                  text: "Medi",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Color.fromRGBO(55, 71, 79, 1))),
+              TextSpan(
+                  text: "Link",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Color.fromRGBO(0, 137, 123, 1)))
+            ])),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.notifications_outlined)),
+                ),
+                Expanded(
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.settings_outlined)),
+                )
+              ],
+            ),
           )
         ],
       ),

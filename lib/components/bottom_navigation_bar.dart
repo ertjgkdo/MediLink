@@ -4,10 +4,10 @@ class BottomBar extends StatelessWidget {
   const BottomBar({super.key});
 
   final List<({IconData icon, String label})> items = const [
-    (icon: Icons.home, label: "Home"),
-    (icon: Icons.explore, label: "Explore"),
-    (icon: Icons.event_note, label: "Book"),
-    (icon: Icons.folder_copy, label: "OPD"),
+    (icon: Icons.home_outlined, label: "Home"),
+    (icon: Icons.search_outlined, label: "Explore"),
+    (icon: Icons.calendar_month_outlined, label: "Book"),
+    (icon: Icons.content_paste, label: "OPD"),
     (icon: Icons.person_outline, label: "Profile")
   ];
 
@@ -17,23 +17,30 @@ class BottomBar extends StatelessWidget {
       final selected = ref.watch(navBarSelectionProvider);
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color.fromRGBO(55, 71, 79, 1),
+          borderRadius: BorderRadius.circular(15),
+          color: const Color.fromRGBO(26, 43, 80, 1),
         ),
+        height: 55,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: items
               .asMap()
               .entries
-              .map((item) => bottomBarIcons(
-                    icon: item.value.icon,
-                    label: item.value.label,
-                    isSelected: item.key == selected,
-                    onPressed: () {
-                      ref.read(navBarSelectionProvider.notifier).state =
-                          item.key;
-                    },
+              .map((item) => Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 3),
+                      child: bottomBarIcons(
+                        icon: item.value.icon,
+                        label: item.value.label,
+                        isSelected: item.key == selected,
+                        onPressed: () {
+                          ref.read(navBarSelectionProvider.notifier).state =
+                              item.key;
+                        },
+                      ),
+                    ),
                   ))
               .toList(),
         ),
@@ -50,32 +57,22 @@ class BottomBar extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: AnimatedContainer(
+        alignment: Alignment.center,
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: isSelected
             ? BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: const Color.fromRGBO(0, 137, 123, 1),
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
               )
             : null,
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 24,
-              color: Colors.white,
-            ),
-            if (isSelected) ...[
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ],
+        child: Expanded(
+          child: Icon(
+            icon,
+            size: 24,
+            color: isSelected
+                ? const Color.fromRGBO(255, 183, 77, 1)
+                : const Color.fromRGBO(60, 191, 174, 1),
+          ),
         ),
       ),
     );

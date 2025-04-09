@@ -16,12 +16,17 @@ class MyApp extends StatelessWidget {
         scrollBehavior: MyScroll(),
         themeMode: ThemeMode.light,
         theme: ThemeData(
-            colorScheme:
-                ColorScheme.light(primary: Color.fromRGBO(0, 137, 123, 1)),
+            colorScheme: const ColorScheme.light(
+                primary: Color.fromRGBO(0, 137, 123, 1)),
             useMaterial3: false),
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
-        home: Home()
+        home: Login()
+        // const RecordDetail()
+        // OpdDetail()
+        //
+        // const Home()
+        //
         // DoctorPage(doctor: Doctor(),)
         //
         // DepartmentPage(
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
 
         // HospitalPage(hospital: Hospital())
 
-        // Login(),
+        //
         );
   }
 }

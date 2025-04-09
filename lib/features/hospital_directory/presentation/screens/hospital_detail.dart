@@ -13,8 +13,7 @@ class HospitalPage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //hospital description/detail container
-                    topbar_extended(),
-
+                    const topbar_extended(),
                     Expanded(
                       flex: 2,
                       child: Container(

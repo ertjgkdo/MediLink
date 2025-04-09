@@ -1,4 +1,3 @@
-import 'package:medilink/features/authentication/presentation/controllers/login_controller.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class Login extends ConsumerWidget {
@@ -7,6 +6,7 @@ class Login extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final formController = ref.read(loginFormProvider.notifier);
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -16,44 +16,52 @@ class Login extends ConsumerWidget {
               children: [
                 const Padding(
                   padding: EdgeInsets.only(top: 60),
-                  child: Text(
-                    "Welcome\nto",
-                    style: TextStyle(
-                      color: Color.fromRGBO(55, 71, 79, 1),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 33,
+                  child: Expanded(
+                    child: Text(
+                      "Welcome\nto",
+                      style: TextStyle(
+                        color: Color.fromRGBO(55, 71, 79, 1),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 33,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    width: 80,
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      width: 80,
+                    ),
                   ),
                 ),
-                const Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: "Medi",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 33,
-                          color: Color.fromRGBO(55, 71, 79, 1))),
-                  TextSpan(
-                      text: "Link",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 33,
-                          color: Color.fromRGBO(0, 137, 123, 1)))
-                ])),
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: const Text(
-                    "Simplifying your healthcare journey,\n one click at a time.",
-                    style: TextStyle(color: Colors.black, fontSize: 15),
-                    textAlign: TextAlign.center,
+                Expanded(
+                  child: const Text.rich(TextSpan(children: [
+                    TextSpan(
+                        text: "Medi",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 33,
+                            color: Color.fromRGBO(55, 71, 79, 1))),
+                    TextSpan(
+                        text: "Link",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 33,
+                            color: Color.fromRGBO(0, 137, 123, 1)))
+                  ])),
+                ),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: const Text(
+                      "Simplifying your healthcare journey,\n one click at a time.",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ],
@@ -69,7 +77,7 @@ class Login extends ConsumerWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 40),
+                        vertical: 15, horizontal: 80),
                     child: formTextfield(
                         controller: formController.idController,
                         icon: Icons.phone,
@@ -83,18 +91,14 @@ class Login extends ConsumerWidget {
                         }),
                   ),
                   Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 10),
-                      child: formTextfield(
-                          controller: formController.passwordController,
-                          icon: Icons.password,
-                          label: "Password",
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Password is required';
-                            }
-                            return null;
-                          })),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
+                    child: PasswordField(
+                      controller: formController.passwordController,
+                      label: "Password",
+                      visibilityProvider: passwordVisibilityProvider,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 10),
                     child: ElevatedButton(

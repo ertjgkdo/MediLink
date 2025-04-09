@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class DoctorPage extends ConsumerWidget {
   const DoctorPage({super.key, required this.doctor});
   final Doctor doctor;
+
   @override
   Widget build(BuildContext context, ref) {
     final slotsProvider = ref.watch(slotDocProvider(doctor.id!));
     return Scaffold(
       body: Column(
         children: [
-          topbar_extended(),
+          const topbar_extended(),
           Expanded(
             flex: 2,
             child: Container(
@@ -54,7 +54,7 @@ class DoctorPage extends ConsumerWidget {
                   Expanded(
                     // margin: EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
                       child: slotsProvider.when(
                           data: (slots) {
                             return ListView.separated(
@@ -63,19 +63,20 @@ class DoctorPage extends ConsumerWidget {
                                   final slot = slots[index];
                                   return ListTile(
                                       // onTap: () {},
-                                      leading: Icon(
+                                      leading: const Icon(
                                         Icons.access_time,
                                         color: Colors.blue,
                                       ),
                                       title: Text(
                                           "${slot.startTime}-${slot.endTime}"),
                                       subtitle: Text(slot.date.toString()),
-                                      trailing: ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text("Book now")));
+                                      trailing: book_button(
+                                        slotId: slot.id,
+                                      ));
                                 });
                               },
-                              separatorBuilder: (context, index) => Divider(),
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
                               itemCount: slots.length,
                             );
                           },

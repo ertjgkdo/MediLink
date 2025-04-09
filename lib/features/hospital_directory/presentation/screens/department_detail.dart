@@ -12,7 +12,7 @@ class DepartmentPage extends ConsumerWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  topbar_extended(),
+                  const topbar_extended(),
                   Expanded(
                     flex: 2,
                     child: Container(

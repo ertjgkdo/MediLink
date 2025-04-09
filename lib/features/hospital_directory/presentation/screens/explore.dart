@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:medilink/features/hospital_directory/state/state.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class Explore extends ConsumerWidget {
@@ -8,28 +6,39 @@ class Explore extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final hospProvider = ref.watch(hospitalProvider);
+
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const top_bar(),
-          const searchBar(),
-          Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: const Text(
-                "Browse Hospitals",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
-              )),
           Expanded(
+            child: Column(
+              children: [
+                const top_bar(),
+                const searchBar(),
+                Expanded(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: const Text(
+                        "Browse Hospitals",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      )),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+              flex: 2,
               child: hospProvider.when(
                   data: (hospitals) {
                     return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Two items per row
-
+                        crossAxisCount: 2,
                         mainAxisSpacing: 10,
-                        childAspectRatio: 1, // Square shape
+                        childAspectRatio: 1,
                       ),
                       itemCount: hospitals.length,
                       itemBuilder: (context, index) {
@@ -55,7 +64,7 @@ class Explore extends ConsumerWidget {
                                   Expanded(
                                     flex: 3,
                                     child: Container(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           left: 2, right: 2, top: 2),
                                       decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.only(
@@ -69,36 +78,43 @@ class Explore extends ConsumerWidget {
                                   ),
                                   Expanded(
                                     flex: 2,
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                              child: Text(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
                                             hospital.name!,
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            overflow: TextOverflow.visible,
+                                            maxLines: 2,
+                                            style: const TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.bold,
                                             ),
-                                          )),
-                                          Container(
-                                              child: Text(
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
                                             hospital.address!,
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            overflow: TextOverflow.visible,
+                                            maxLines: 2,
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             ),
-                                          )),
-                                          Container(
-                                              child: Text(
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
                                             hospital.phone!,
                                             textAlign: TextAlign.center,
-                                            style: TextStyle(
+                                            overflow: TextOverflow.visible,
+                                            maxLines: 2,
+                                            style: const TextStyle(
                                               fontSize: 12,
                                             ),
-                                          )),
-                                        ],
-                                      ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],

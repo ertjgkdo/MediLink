@@ -48,15 +48,45 @@ class SignUpController extends Notifier<Patient?> {
 
       try {
         final user = await authRepository.signUp(patient: state!);
-        state = user;
+
+        if (user.token != null) {
+          await SecureStorage.saveUserInfo(user);
+        }
+        void clearFormFields() {
+          // Reset form keys
+          generalInfoFormKey.currentState?.reset();
+          addressFormKey.currentState?.reset();
+          passwordFormKey.currentState?.reset();
+
+          // Clear text controllers
+          nameController.clear();
+          emailController.clear();
+          dobController.clear();
+          phoneController.clear();
+          toleController.clear();
+          passwordController.clear();
+          confirmController.clear();
+
+          // Reset dropdown selections
+          gender = "";
+          bloodgroup = "";
+          province = "";
+          district = "";
+          subdistrict = "";
+
+          // Notify UI if needed (depends on Riverpod usage)
+          state = null;
+        }
+
+        clearFormFields();
+
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Sign Up Successful!")));
-        Navigator.push(
+        Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-              builder: (context) => const Login(),
-            ));
-      } catch (e) {
+            MaterialPageRoute(builder: (context) => const Home()),
+            (route) => false);
+      } catch (e, stackTrace) {
         String errorMessage = "Sign Up Not Successful!";
 
         if (e.toString().contains("Phone number already registered")) {
@@ -87,5 +117,31 @@ class SignUpController extends Notifier<Patient?> {
     return addressParts.isNotEmpty
         ? addressParts.join(", ")
         : "N/A"; // Default to "N/A" if empty
+  }
+
+  void clearFormFields() {
+    // Reset form keys
+    generalInfoFormKey.currentState?.reset();
+    addressFormKey.currentState?.reset();
+    passwordFormKey.currentState?.reset();
+
+    // Clear text controllers
+    nameController.clear();
+    emailController.clear();
+    dobController.clear();
+    phoneController.clear();
+    toleController.clear();
+    passwordController.clear();
+    confirmController.clear();
+
+    // Reset dropdown selections
+    gender = "";
+    bloodgroup = "";
+    province = "";
+    district = "";
+    subdistrict = "";
+
+    // Notify UI if needed (depends on Riverpod usage)
+    state = null;
   }
 }

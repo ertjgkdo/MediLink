@@ -1,16 +1,20 @@
-import 'package:medilink/features/authentication/presentation/controllers/login_controller.dart';
-
 import '../../../utils/exporter.dart';
 
 //provider for multi-step signup form
 final formStepProvider =
     NotifierProvider<FormStepController, int>(FormStepController.new);
+final passwordVisibilityProvider = StateProvider<bool>((ref) => false);
+final confirmPasswordVisibilityProvider = StateProvider<bool>((ref) => false);
+
 //overall signup form
 final signUpFormProvider =
     NotifierProvider<SignUpController, Patient?>(SignUpController.new);
 //login form
 final loginFormProvider =
-    NotifierProvider<LoginController, Patient?>(LoginController.new);
+    NotifierProvider.autoDispose<LoginController, Patient?>(
+        LoginController.new);
+final signoutProvider =
+    StateNotifierProvider<SignoutController, void>(SignoutController.new);
 //address form
 final addressProvider = AsyncNotifierProvider<AddressController, AddressModel?>(
     AddressController.new);

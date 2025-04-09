@@ -27,7 +27,7 @@ abstract class Repository<T> {
             body: body);
     try {
       if (response.statusCode == 201 || response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return fromRawJson(response.body);
 
         // Success status code for get request is 200
@@ -41,10 +41,16 @@ abstract class Repository<T> {
   }
 
   Future<T> getById(
-      {Client? client, required String path, required String id}) async {
+      {Client? client,
+      required String path,
+      required String id,
+      String? authToken}) async {
     final response = await ((client ?? localClient) ?? Client()).get(
       Uri.parse('$baseUrl$endpoint$path/$id'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        if (authToken != null) 'x-auth-token': authToken,
+      },
     );
     try {
       if (response.statusCode == 200) {
@@ -58,10 +64,16 @@ abstract class Repository<T> {
   }
 
   Future<List<T>> getListById(
-      {Client? client, required String path, required String id}) async {
+      {Client? client,
+      required String path,
+      required String id,
+      String? authtoken}) async {
     final response = await ((client ?? localClient) ?? Client()).get(
       Uri.parse('$baseUrl$endpoint$path/$id'),
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        if (authtoken != null) 'x-auth-token': authtoken,
+      },
     );
     try {
       if (response.statusCode == 200) {
@@ -86,6 +98,26 @@ abstract class Repository<T> {
     try {
       if (response.statusCode == 200) {
         return fromJsonList(response.body);
+      } else {
+        throw "${response.statusCode} ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<T>> getByQuery(
+      {Client? client, String? path, String? queries}) async {
+    final response = await ((client ?? localClient) ?? Client()).get(
+        Uri.parse(
+            '$baseUrl$endpoint${path == null ? "" : "/$path"}?name=${queries == null ? "" : "$queries"}'),
+        headers: {'Content-Type': 'application/json'});
+    try {
+      if (response.statusCode == 200) {
+        // print(response.body);
+        return fromJsonList(response.body);
+
+        // Success status code for get request is 200
       } else {
         throw "${response.statusCode} ${response.reasonPhrase}";
       }

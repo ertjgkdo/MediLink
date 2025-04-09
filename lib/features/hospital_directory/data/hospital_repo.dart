@@ -12,4 +12,9 @@ class HospitalRepository extends Repository<Hospital> {
   Future<List<Hospital>> getHospList() => getAll(path: "/hospitals");
   Future<Hospital> getHospitalbyId({required String id}) =>
       getById(path: "/hospitals", id: id);
+  Future<List<Hospital>> searchHospitals(
+      {String? query, Client? client}) async {
+    return await getByQuery(
+        path: "search/hospitals", queries: query, client: client);
+  }
 }

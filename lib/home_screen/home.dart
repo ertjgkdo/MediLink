@@ -1,3 +1,4 @@
+import 'package:medilink/home_screen/profile.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class Home extends ConsumerWidget {
@@ -12,13 +13,35 @@ class Home extends ConsumerWidget {
           IndexedStack(
             index: currentPage,
             children: [
-              Visibility(
-                visible: currentPage == 0,
-                child: home(),
+              Expanded(
+                child: Visibility(
+                  visible: currentPage == 0,
+                  child: home(),
+                ),
               ),
-              Visibility(
-                visible: currentPage == 1,
-                child: Explore(),
+              Expanded(
+                child: Visibility(
+                  visible: currentPage == 1,
+                  child: Explore(),
+                ),
+              ),
+              Expanded(
+                child: Visibility(
+                  visible: currentPage == 2,
+                  child: Container(),
+                ),
+              ),
+              Expanded(
+                child: Visibility(
+                  visible: currentPage == 3,
+                  child: MyOpd(),
+                ),
+              ),
+              Expanded(
+                child: Visibility(
+                  visible: currentPage == 4,
+                  child: Profile(),
+                ),
               ),
             ],
           ),
@@ -37,6 +60,7 @@ class Home extends ConsumerWidget {
     return Column(
       children: [
         const top_bar(),
+        // Text("Welcome Back, "),
         const searchBar(),
       ],
     );

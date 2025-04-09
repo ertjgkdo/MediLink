@@ -1,6 +1,6 @@
 import '../../../../utils/exporter.dart';
 
-class LoginController extends Notifier<Patient?> {
+class LoginController extends AutoDisposeNotifier<Patient?> {
   final authRepository = AuthRepository();
   final loginFormKey = GlobalKey<FormState>();
 

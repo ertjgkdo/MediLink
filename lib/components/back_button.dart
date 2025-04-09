@@ -17,6 +17,7 @@ class backButton extends StatelessWidget {
         margin: const EdgeInsets.only(left: 10, top: 10),
         padding: const EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           border: Border.all(color: const Color.fromRGBO(0, 137, 123, 1)),
         ),

@@ -5,7 +5,7 @@ class Department {
   final String? name;
   final String? description;
   final String? phone;
-  final String? hospital;
+  final dynamic hospital;
   final List<dynamic>? doctors;
 
   Department({
@@ -22,7 +22,7 @@ class Department {
     String? name,
     String? description,
     String? phone,
-    String? hospital,
+    dynamic hospital,
     List<dynamic>? doctors,
   }) =>
       Department(
@@ -44,7 +44,12 @@ class Department {
         name: json["name"],
         description: json["description"],
         phone: json["phone"],
-        hospital: json["hospital"],
+        hospital: json["hospital"] is String
+            ? json["hospital"] // Store ID directly if it's a string
+            : json["hospital"] is Map<String, dynamic>
+                ? Hospital.fromJson(
+                    json["hospital"]) // Convert to Hospital object
+                : null,
         doctors: json["doctors"] != null
             ? json["doctors"].map<dynamic>((doc) {
                 if (doc is String) {
@@ -62,7 +67,7 @@ class Department {
         "name": name,
         "description": description,
         "phone": phone,
-        "hospital": hospital,
+        "hospital": hospital is Hospital ? hospital.toJson() : hospital,
         "doctors": doctors?.map((doc) {
               if (doc is String) {
                 return doc;

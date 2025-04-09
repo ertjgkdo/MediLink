@@ -20,12 +20,11 @@ class AuthRepository extends Repository<Patient> {
         path: "/auth/login",
         client: localClient,
         body: jsonEncode({"phone": phone, "password": password}));
-    print(response.name);
-    final String? token = response.token;
-    // final Patient user = Patient.fromJson(response['user']);
+    // print(response.name);
 
-    // Store token securely
-    await storage.write(key: 'auth_token', value: token);
+    final Patient user = response;
+
+    await SecureStorage.saveUserInfo(user);
     return response;
   }
 }
