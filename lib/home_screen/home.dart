@@ -1,4 +1,3 @@
-import 'package:medilink/home_screen/profile.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class Home extends ConsumerWidget {
@@ -28,7 +27,7 @@ class Home extends ConsumerWidget {
               Expanded(
                 child: Visibility(
                   visible: currentPage == 2,
-                  child: Container(),
+                  child: SymptomCheckerPage(),
                 ),
               ),
               Expanded(

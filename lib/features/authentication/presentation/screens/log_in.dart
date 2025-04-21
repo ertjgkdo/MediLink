@@ -81,7 +81,6 @@ class Login extends ConsumerWidget {
                     child: formTextfield(
                         controller: formController.idController,
                         icon: Icons.phone,
-                        prefixtext: "+977",
                         label: "Phone number",
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -103,7 +102,6 @@ class Login extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 20, bottom: 10),
                     child: ElevatedButton(
                       onPressed: () {
-                        print("pressed");
                         if (formController.loginFormKey.currentState!
                             .validate()) {
                           formController.login(context: context);

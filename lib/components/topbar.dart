@@ -40,7 +40,7 @@ class top_bar extends StatelessWidget {
                 Expanded(
                   child: IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.settings_outlined)),
+                      icon: const Icon(Icons.logout_outlined)),
                 )
               ],
             ),

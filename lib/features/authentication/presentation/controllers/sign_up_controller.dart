@@ -86,7 +86,7 @@ class SignUpController extends Notifier<Patient?> {
             context,
             MaterialPageRoute(builder: (context) => const Home()),
             (route) => false);
-      } catch (e, stackTrace) {
+      } catch (e) {
         String errorMessage = "Sign Up Not Successful!";
 
         if (e.toString().contains("Phone number already registered")) {
@@ -110,8 +110,9 @@ class SignUpController extends Notifier<Patient?> {
 
     if (province != null && province.isNotEmpty) addressParts.add(province);
     if (district != null && district.isNotEmpty) addressParts.add(district);
-    if (subdistrict != null && subdistrict.isNotEmpty)
+    if (subdistrict != null && subdistrict.isNotEmpty) {
       addressParts.add(subdistrict);
+    }
     if (tole.isNotEmpty) addressParts.add(tole);
 
     return addressParts.isNotEmpty

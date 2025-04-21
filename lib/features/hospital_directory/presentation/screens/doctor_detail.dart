@@ -72,6 +72,8 @@ class DoctorPage extends ConsumerWidget {
                                       subtitle: Text(slot.date.toString()),
                                       trailing: book_button(
                                         slotId: slot.id,
+                                        doctorId: doctor.id!,
+                                        ref: ref,
                                       ));
                                 });
                               },

@@ -9,11 +9,12 @@ class RecordRepository extends Repository<RecordModel> {
 
   Future<List<RecordModel>> getAllRecords({required String id}) async {
     final String? authToken = await SecureStorage.getToken();
-    return getListById(path: "/records", id: id, authtoken: authToken);
+    print(authToken);
+    return getListById(path: "/opd/records/all", id: id, authtoken: authToken);
   }
 
   Future<RecordModel> getRecordDetails(String id) async {
     final String? authToken = await SecureStorage.getToken();
-    return getById(path: "/records", id: id, authToken: authToken);
+    return getById(path: "/opd/records", id: id, authToken: authToken);
   }
 }

@@ -9,7 +9,6 @@ class CardRepository extends Repository<CardModel> {
 
   Future<List<CardModel>> getOpdCards({required String id}) async {
     final String? authToken = await SecureStorage.getToken();
-
     return getListById(path: "/opd/cards/all", id: id, authtoken: authToken);
   }
 

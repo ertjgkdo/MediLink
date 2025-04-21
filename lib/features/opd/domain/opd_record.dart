@@ -130,22 +130,26 @@ class Vitals {
 }
 
 class Prescription {
-  final String? id;
-  final String? medicine;
-  final String? duration;
+  final String id;
+  final String medicine;
+  final String duration;
   final String? instruction;
 
-  Prescription({this.id, this.medicine, this.duration, this.instruction});
+  Prescription(
+      {required this.id,
+      required this.medicine,
+      required this.duration,
+      this.instruction});
 
   Prescription copyWith(
-          {String? id,
-          String? medicine,
-          String? duration,
+          {required String id,
+          required String medicine,
+          required String duration,
           String? instruction}) =>
       Prescription(
-          id: id ?? this.id,
-          medicine: medicine ?? this.medicine,
-          duration: duration ?? this.duration,
+          id: id,
+          medicine: medicine,
+          duration: duration,
           instruction: instruction ?? this.instruction);
 
   factory Prescription.fromRawJson(String str) =>

@@ -2,7 +2,7 @@ import 'exporter.dart';
 
 abstract class Repository<T> {
   final Client? localClient;
-  final String baseUrl = "http://localhost:3002/";
+  final String baseUrl = "http://100.64.199.117:3002/";
   final String endpoint = "api";
   //constructor
   Repository({this.localClient});
@@ -14,6 +14,29 @@ abstract class Repository<T> {
   List<T> fromJsonList(String json) {
     final List<dynamic> decodedList = jsonDecode(json);
     return decodedList.map((item) => fromJson(item)).toList();
+  }
+
+  //generic getrequest
+  Future<T> getRequest(
+      {Client? client, required String path, String? authToken}) async {
+    final response = await ((client ?? localClient) ?? Client()).get(
+      Uri.parse('$baseUrl$endpoint$path'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (authToken != null) 'x-auth-token': authToken,
+      },
+    );
+    print("API Response: ${response.body}");
+
+    try {
+      if (response.statusCode == 200) {
+        return fromJson(jsonDecode(response.body));
+      } else {
+        throw "${response.statusCode} ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
 //generic POST method
@@ -37,6 +60,36 @@ abstract class Repository<T> {
       }
     } catch (e, stacktrace) {
       throw Exception("Failed: $e, $stacktrace");
+    }
+  }
+
+//generic put request
+  Future<T> putRequest({
+    Client? client,
+    required String path,
+    required String id,
+    required Map<String, dynamic> body,
+    String? authToken,
+  }) async {
+    final response = await ((client ?? localClient) ?? Client()).put(
+      Uri.parse('$baseUrl$endpoint$path/$id'),
+      headers: {
+        'Content-Type': 'application/json',
+        if (authToken != null) 'x-auth-token': authToken,
+      },
+      body: jsonEncode(body),
+    );
+
+    try {
+      if (response.statusCode == 200) {
+        return fromRawJson(response.body);
+      } else {
+        final error = jsonDecode(response.body);
+        throw Exception(error['error'] ??
+            "${response.statusCode} ${response.reasonPhrase}");
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -86,11 +139,13 @@ abstract class Repository<T> {
     }
   }
 
-  Future<List<T>> getAll({Client? client, required String path}) async {
+  Future<List<T>> getAll(
+      {Client? client, required String path, String? authToken}) async {
     final response = await ((client ?? localClient) ?? Client()).get(
       Uri.parse('$baseUrl$endpoint$path'),
       headers: {
         'Content-Type': 'application/json',
+        if (authToken != null) 'x-auth-token': authToken,
       },
     );
     print("API Response: ${response.body}");
@@ -110,7 +165,7 @@ abstract class Repository<T> {
       {Client? client, String? path, String? queries}) async {
     final response = await ((client ?? localClient) ?? Client()).get(
         Uri.parse(
-            '$baseUrl$endpoint${path == null ? "" : "/$path"}?name=${queries == null ? "" : "$queries"}'),
+            '$baseUrl$endpoint${path == null ? "" : "/$path"}?name=${queries == null ? "" : queries}'),
         headers: {'Content-Type': 'application/json'});
     try {
       if (response.statusCode == 200) {

@@ -22,6 +22,8 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: Login()
+        // SymptomCheckerPage()
+        //
         // const RecordDetail()
         // OpdDetail()
         //

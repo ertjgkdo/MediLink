@@ -34,7 +34,7 @@ class searchResultList extends StatelessWidget {
           leading: item is Doctor || item is Hospital
               ? item.image != null
                   ? const Image(
-                      image: const AssetImage("assets/images/hospital/h1.png"))
+                      image: AssetImage("assets/images/hospital/h1.png"))
                   : const Icon(Icons.person)
               : null,
           onTap: () {

@@ -5,10 +5,10 @@ class PasswordField extends ConsumerWidget {
       {super.key,
       required this.controller,
       required this.visibilityProvider,
-      required this.label});
+      this.label});
 
   final TextEditingController controller;
-  final String label;
+  final String? label;
   final StateProvider<bool> visibilityProvider;
   @override
   Widget build(BuildContext context, ref) {

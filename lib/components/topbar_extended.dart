@@ -7,14 +7,12 @@ class topbar_extended extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          backButton(),
-          const top_bar(),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        backButton(),
+        const top_bar(),
+      ],
     );
   }
 }

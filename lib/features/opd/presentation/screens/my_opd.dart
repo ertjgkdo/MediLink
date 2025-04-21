@@ -220,7 +220,7 @@ class MyOpd extends ConsumerWidget {
                                                                     DateFormat(
                                                                             'MMMM')
                                                                         .format(
-                                                                            recentVisitDate!)
+                                                                            recentVisitDate)
                                                                         .toString(),
                                                                     style: const TextStyle(
                                                                         color:

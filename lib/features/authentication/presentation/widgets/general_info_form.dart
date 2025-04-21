@@ -9,18 +9,6 @@ class GeneralInfoForm extends ConsumerWidget {
     String? selectedGender;
     String? selectedBloodGroup;
 
-    // Gender and blood group options
-    final List<String> genderOptions = ['Male', 'Female', 'Other'];
-    final List<String> bloodGroupOptions = [
-      'A+',
-      'A-',
-      'B+',
-      'B-',
-      'O+',
-      'O-',
-      'AB+',
-      'AB-'
-    ];
     return Column(
       children: [
         const Padding(
