@@ -14,7 +14,7 @@ class searchResultList extends StatelessWidget {
       itemCount: results.length,
       itemBuilder: (context, index) {
         final item = results[index];
-        print(results.length);
+        // print(results.length);
         return ListTile(
           title: Text(
             item.name ?? "Unknown",

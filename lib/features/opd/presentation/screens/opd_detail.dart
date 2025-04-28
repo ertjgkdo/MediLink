@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import '../../../../utils/exporter.dart';
 
 class OpdDetail extends ConsumerWidget {
@@ -22,7 +23,7 @@ class OpdDetail extends ConsumerWidget {
                   Text(
                     opdCard.hospital.name.toString(),
                     style: const TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -40,16 +41,16 @@ class OpdDetail extends ConsumerWidget {
                           children: [
                             Text("OPD NO:",
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 )),
                             Text("ISSUE DATE:",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold)),
                             Text("LAST VISIT:",
                                 style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontWeight: FontWeight.bold)),
                           ],
                         ),
@@ -60,11 +61,17 @@ class OpdDetail extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(opdCard.opdNo,
-                                style: const TextStyle(color: Colors.black)),
-                            Text(opdCard.createdAt.toString(),
-                                style: const TextStyle(color: Colors.black)),
-                            Text(opdCard.records!.last.visitdate.toString(),
-                                style: const TextStyle(color: Colors.black)),
+                                style: const TextStyle(color: Colors.white)),
+                            Text(
+                                DateFormat('yyyy-MM-dd')
+                                    .format(opdCard.createdAt)
+                                    .toString(),
+                                style: const TextStyle(color: Colors.white)),
+                            Text(
+                                DateFormat('yyyy-MM-dd')
+                                    .format(opdCard.records!.last.visitdate)
+                                    .toString(),
+                                style: const TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -163,7 +170,9 @@ class OpdDetail extends ConsumerWidget {
                                             Expanded(
                                               child: RecordDetailColumn(
                                                   label: "Visit Date",
-                                                  value: record.visitdate
+                                                  value: DateFormat(
+                                                          'yyyy-MM-dd')
+                                                      .format(record.visitdate)
                                                       .toString()),
                                             ),
                                             Expanded(
@@ -174,7 +183,9 @@ class OpdDetail extends ConsumerWidget {
                                             Expanded(
                                               child: RecordDetailColumn(
                                                   label: "Follow Up",
-                                                  value: record.followup
+                                                  value: DateFormat(
+                                                          'yyyy-MM-dd')
+                                                      .format(record.followup!)
                                                       .toString()),
                                             )
                                           ],

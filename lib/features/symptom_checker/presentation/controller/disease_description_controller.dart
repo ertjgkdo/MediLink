@@ -1,11 +1,13 @@
 import 'package:medilink/utils/exporter.dart';
 
-class DiseaseDescriptionController {
+class DiseaseDescriptionController extends AutoDisposeFutureProvider {
   final Map<String, String> _descriptionMap = {};
 
+  DiseaseDescriptionController(super.createFn);
+
   Future<void> loadDescriptions() async {
-    final data = await rootBundle
-        .loadString('assets/images/csv/disease_Description.csv');
+    final data =
+        await rootBundle.loadString('assets/csv/disease_Description.csv');
     final lines = const LineSplitter().convert(data);
 
     for (var line in lines.skip(1)) {

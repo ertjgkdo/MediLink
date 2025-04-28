@@ -1,17 +1,11 @@
 import 'package:medilink/utils/exporter.dart';
 
-class BookingRepository extends Repository {
+class BookingRepository extends Repository<Slot> {
   @override
-  fromJson(Map<String, dynamic> map) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
-  }
+  Slot fromJson(Map<String, dynamic> map) => Slot.fromJson(map);
 
   @override
-  fromRawJson(String json) {
-    // TODO: implement fromRawJson
-    throw UnimplementedError();
-  }
+  Slot fromRawJson(String json) => Slot.fromRawJson(json);
 
   book({required String slotId, required String userId}) async {
     return await postRequest(

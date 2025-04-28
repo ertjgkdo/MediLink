@@ -1,7 +1,4 @@
-import 'package:medilink/features/search/presentation/controller/departments_search_delegate.dart';
-import 'package:medilink/features/search/presentation/controller/doctor_search_delegate.dart';
-
-import '../../../../utils/exporter.dart';
+import 'package:medilink/utils/exporter.dart';
 
 class searchBar extends ConsumerWidget {
   const searchBar({
@@ -12,7 +9,6 @@ class searchBar extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final selectedFilter = ref.watch(searchFilterProvider);
     final filterController = ref.read(searchFilterProvider.notifier);
-
     return Column(
       children: [
         GestureDetector(

@@ -1,3 +1,5 @@
+import 'package:medilink/utils/constants/disease_departments.dart';
+import 'package:medilink/utils/constants/disease_description.dart';
 import 'package:medilink/utils/exporter.dart';
 
 class ResultPage extends ConsumerWidget {
@@ -7,8 +9,7 @@ class ResultPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final descriptioncontroller = ref.watch(descriptionProvider);
-
+    final topexpanded = ref.watch(topDescriptionToggleProvider);
     final topPrediction = results.first;
     final otherPredictions = results.sublist(1);
     return Scaffold(
@@ -77,11 +78,31 @@ class ResultPage extends ConsumerWidget {
                                       ),
                                       Expanded(
                                         child: IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(Icons
-                                                .arrow_drop_down_outlined)),
+                                            onPressed: () {
+                                              final toggleController = ref.read(
+                                                  topDescriptionToggleProvider
+                                                      .notifier);
+                                              toggleController.state =
+                                                  !toggleController.state;
+                                            },
+                                            icon: Icon(topexpanded
+                                                ? Icons.arrow_drop_up_outlined
+                                                : Icons
+                                                    .arrow_drop_down_outlined)),
                                       )
                                     ],
+                                  ),
+                                  if (topexpanded)
+                                    Text(
+                                      diseaseDescriptions[
+                                              topPrediction.condition] ??
+                                          "No description available",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  SizedBox(
+                                    height: 10,
                                   ),
                                   Text(
                                     "Confidence: ${topPrediction.confidence}",
@@ -94,8 +115,8 @@ class ResultPage extends ConsumerWidget {
                             )
                           ],
                         ),
-                        const Text(
-                          "Suggested Department: Neurology",
+                        Text(
+                          "Suggested Department:${diseaseToDepartment[topPrediction.condition] ?? "N/A"}",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 15),
                         )
@@ -110,6 +131,9 @@ class ResultPage extends ConsumerWidget {
                     child: ListView.builder(
                         itemCount: otherPredictions.length,
                         itemBuilder: (context, index) {
+                          final toggleStates = ref.watch(otherConditiontoggler);
+                          final toggleController =
+                              ref.read(otherConditiontoggler.notifier);
                           return Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
@@ -131,38 +155,46 @@ class ResultPage extends ConsumerWidget {
                                       child: Text(
                                         otherPredictions[index].condition,
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 15),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 17),
                                       ),
                                     ),
                                     Expanded(
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                              Icons.arrow_drop_down_outlined)),
-                                    )
+                                        child: IconButton(
+                                      onPressed: () {
+                                        toggleController.toggle(index);
+                                      },
+                                      icon: Icon(toggleStates[index] == true
+                                          ? Icons.arrow_drop_up_outlined
+                                          : Icons.arrow_drop_down_outlined),
+                                    ))
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "About food poisoning\nAbout food poisoning",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w300,
-                                          fontSize: 14),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Suggested Department: Stomach",
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 15),
-                                    ),
-                                  ],
-                                ),
+                                if (toggleStates[index] == true)
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        diseaseDescriptions[
+                                                otherPredictions[index]
+                                                    .condition] ??
+                                            "No description available",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: 14),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "Suggested Department: ${diseaseToDepartment[otherPredictions[index].condition] ?? "N/A"}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: Row(children: [

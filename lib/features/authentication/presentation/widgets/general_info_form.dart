@@ -129,7 +129,6 @@ class GeneralInfoForm extends ConsumerWidget {
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: formTextfield(
                 controller: formController.phoneController,
-                prefixtext: "+977",
                 icon: Icons.phone,
                 label: "Phone number",
                 validator: (value) {

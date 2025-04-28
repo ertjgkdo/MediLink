@@ -8,67 +8,62 @@ class Login extends ConsumerWidget {
     final formController = ref.read(loginFormProvider.notifier);
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 60),
-                  child: Expanded(
-                    child: Text(
-                      "Welcome\nto",
-                      style: TextStyle(
-                        color: Color.fromRGBO(55, 71, 79, 1),
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: Expanded(
+                child: Text(
+                  "Welcome\nto",
+                  style: TextStyle(
+                    color: Color.fromRGBO(55, 71, 79, 1),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 33,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 5),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  width: 80,
+                ),
+              ),
+            ),
+            Expanded(
+              child: const Text.rich(TextSpan(children: [
+                TextSpan(
+                    text: "Medi",
+                    style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 33,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(vertical: 5),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      width: 80,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: const Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: "Medi",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 33,
-                            color: Color.fromRGBO(55, 71, 79, 1))),
-                    TextSpan(
-                        text: "Link",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 33,
-                            color: Color.fromRGBO(0, 137, 123, 1)))
-                  ])),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: const Text(
-                      "Simplifying your healthcare journey,\n one click at a time.",
-                      style: TextStyle(color: Colors.black, fontSize: 15),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
+                        color: Color.fromRGBO(55, 71, 79, 1))),
+                TextSpan(
+                    text: "Link",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 33,
+                        color: Color.fromRGBO(0, 137, 123, 1)))
+              ])),
             ),
-          ),
-          Expanded(
-            child: Form(
+            Expanded(
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: const Text(
+                  "Simplifying your healthcare journey,\n one click at a time.",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Form(
               key: formController.loginFormKey,
               child: Column(
                 children: [
@@ -148,8 +143,8 @@ class Login extends ConsumerWidget {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

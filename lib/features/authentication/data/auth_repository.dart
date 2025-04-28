@@ -10,27 +10,28 @@ class AuthRepository extends Repository<Patient> {
 
   Future<Patient> signUp({required Patient patient}) async {
     return await postRequest(
-        path: "/auth/signup", body: patient.patientToJson(patient));
+        path: "/auth/patient/signup", body: patient.patientToJson(patient));
   }
 
   Future<Patient> signIn(
       {required String phone, required String password}) async {
     // print("here");
     final response = await postRequest(
-        path: "/auth/login",
+        path: "/auth/patient/login",
         client: localClient,
         body: jsonEncode({"phone": phone, "password": password}));
     // print(response.name);
 
     final Patient user = response;
-
+    print("Received token: ${user.token}");
     await SecureStorage.saveUserInfo(user);
     return response;
   }
 
   Future<Patient> getDetails() async {
     final token = await SecureStorage.getToken();
-    final response = await getRequest(path: "/profile/view", authToken: token);
+    final response =
+        await getRequest(path: "/patients/profile/view", authToken: token);
     return response;
   }
 
@@ -40,7 +41,8 @@ class AuthRepository extends Repository<Patient> {
       final token = await SecureStorage.getToken();
       final updatedUser = await putRequest(
         authToken: token,
-        path: '/profile/edit', // adjust if your actual path is different
+        path:
+            '/patients/profile/edit', // adjust if your actual path is different
         id: userId,
         body: updatedData,
       );

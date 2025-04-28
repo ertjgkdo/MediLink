@@ -2,7 +2,12 @@ import 'exporter.dart';
 
 abstract class Repository<T> {
   final Client? localClient;
-  final String baseUrl = "http://100.64.199.117:3002/";
+  final String baseUrl = "http://localhost:3002/";
+  // "http://100.64.193.82:3002/";
+  //
+  //  "http://192.168.1.18:3002/";
+  //college:;
+
   final String endpoint = "api";
   //constructor
   Repository({this.localClient});
@@ -26,7 +31,7 @@ abstract class Repository<T> {
         if (authToken != null) 'x-auth-token': authToken,
       },
     );
-    print("API Response: ${response.body}");
+    // print("API Response: ${response.body}");
 
     try {
       if (response.statusCode == 200) {
@@ -173,6 +178,29 @@ abstract class Repository<T> {
         return fromJsonList(response.body);
 
         // Success status code for get request is 200
+      } else {
+        throw "${response.statusCode} ${response.reasonPhrase}";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<T>> postList({
+    Client? client,
+    required String path,
+    required Map<String, dynamic> body,
+  }) async {
+    final response = await ((client ?? localClient) ?? Client()).post(
+      Uri.parse('$baseUrl$endpoint$path'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
+    );
+
+    try {
+      if (response.statusCode == 200) {
+        return fromJsonList(
+            response.body); // ⬅️ important: expecting a list now
       } else {
         throw "${response.statusCode} ${response.reasonPhrase}";
       }

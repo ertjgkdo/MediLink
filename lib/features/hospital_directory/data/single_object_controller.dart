@@ -9,7 +9,7 @@ class SingleObjectController<T>
   SingleObjectController({required this.fetchFunction});
 
   @override
-  FutureOr<T> build(String id) {
-    return fetchFunction(id);
+  FutureOr<T> build(String arg) {
+    return fetchFunction(arg);
   }
 }

@@ -1,4 +1,3 @@
-import 'package:medilink/features/hospital_directory/data/single_object_controller.dart';
 import 'package:medilink/utils/exporter.dart';
 
 //provider for list of all hospitals

@@ -1,8 +1,19 @@
 import 'dart:ui';
 
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'utils/exporter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocDir = await getApplicationDocumentsDirectory();
+
+  Hive.init(appDocDir.path);
+  Hive.registerAdapter(ReminderModelAdapter());
+  await Hive.openBox<ReminderModel>('reminders');
+  //initializing notifications
+  NotificationService().initNotification();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -22,6 +33,8 @@ class MyApp extends StatelessWidget {
         darkTheme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: Login()
+        // FilterScreen()
+        //
         // SymptomCheckerPage()
         //
         // const RecordDetail()

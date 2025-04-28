@@ -7,67 +7,69 @@ class ChangePassword extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final editController = ref.watch(changePasswordProvider.notifier);
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const backButton(),
-          SizedBox(
-            height: 80,
-          ),
-          Expanded(
-            child: Form(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Text(
-                      "Change Your Password",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Expanded(
-                      child: Form(
-                    child: Column(
-                      children: [
-                        fieldColumn(
-                            passwordVisibilityProvider:
-                                oldPasswordVisibilityProvider,
-                            controller: editController.oldPasswordController,
-                            label: "Old Password"),
-                        fieldColumn(
-                            passwordVisibilityProvider:
-                                passwordVisibilityProvider,
-                            controller: editController.newPasswordController,
-                            label: "New Password"),
-                        fieldColumn(
-                            passwordVisibilityProvider:
-                                confirmPasswordVisibilityProvider,
-                            controller:
-                                editController.confirmPasswordController,
-                            label: "Confirm Password"),
-                        Flexible(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              editController.changePassword(context: context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: primary,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(8)))),
-                            child: Text("Save"),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-                ],
-              ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const backButton(),
+            SizedBox(
+              height: 80,
             ),
-          )
-        ],
+            Expanded(
+              child: Form(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Text(
+                        "Change Your Password",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Expanded(
+                        child: Form(
+                      child: Column(
+                        children: [
+                          fieldColumn(
+                              passwordVisibilityProvider:
+                                  oldPasswordVisibilityProvider,
+                              controller: editController.oldPasswordController,
+                              label: "Old Password"),
+                          fieldColumn(
+                              passwordVisibilityProvider:
+                                  passwordVisibilityProvider,
+                              controller: editController.newPasswordController,
+                              label: "New Password"),
+                          fieldColumn(
+                              passwordVisibilityProvider:
+                                  confirmPasswordVisibilityProvider,
+                              controller:
+                                  editController.confirmPasswordController,
+                              label: "Confirm Password"),
+                          Flexible(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                editController.changePassword(context: context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: primary,
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(8)))),
+                              child: Text("Save"),
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

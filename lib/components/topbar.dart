@@ -1,12 +1,13 @@
-import '../utils/exporter.dart';
+import 'package:medilink/utils/exporter.dart';
 
-class top_bar extends StatelessWidget {
+class top_bar extends ConsumerWidget {
   const top_bar({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final logoutController = ref.read(signoutProvider.notifier);
     return Container(
       margin: EdgeInsets.only(left: 20, right: 20, top: 10),
       child: Row(
@@ -34,12 +35,19 @@ class top_bar extends StatelessWidget {
               children: [
                 Expanded(
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotificationScreen()));
+                      },
                       icon: const Icon(Icons.notifications_outlined)),
                 ),
                 Expanded(
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        logoutController.signout(context: context);
+                      },
                       icon: const Icon(Icons.logout_outlined)),
                 )
               ],
